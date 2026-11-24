@@ -1,0 +1,32 @@
+---
+description: Contexto do projeto de higienização dos PDFs de RI do Itaú
+alwaysApply: true
+---
+
+# Itaú RI — remover páginas de auditor externo
+
+Entregar os PDFs públicos de RI sem produto de trabalho do auditor externo (parecer, revisão, asseguração limitada, CRC da firma, logo PwC/KPMG/Deloitte/EY). Menção feita pelo Itaú fica. Falso negativo é pior que falso positivo. Originais em `raw/ITAU` são somente leitura e não vão para o git.
+
+## Como rodar
+
+Python 3.12 no `.venv`. O `.pth` editável fica oculto no macOS, então use `./itau-ri` (`PYTHONPATH=src`). Léxico em `config/lexicon.yml`. Não processar `raw/ITAU.zip` nem os zips internos.
+
+## Classificação da página
+
+REMOVE se houver título de relatório (não sumário), verbo em primeira pessoa da firma (`auditamos`, `nossa responsabilidade é expressar uma opinião/conclusão`, `in our opinion`), CRC de firma (`CRC 2SP…`, prefixo 2) ou destinatário junto desses sinais. CRC do contador da companhia (`CRC 1SP…`) não remove.
+
+KEEP só na lista fechada (comitê de auditoria, IBRACON, tomar conhecimento, CVM 381, conselho fiscal, cadastro FRE, sumário) e sem sinal forte. Em famílias de risco, menção inofensiva vai para REVIEW (`trust_harmless_in_risk_docs: false`).
+
+REVIEW: menção de firma sem sinal forte; 8 primeiras páginas de demonstrações e análise gerencial; 8 últimas de ESG, anual, FRE e 20-F; pouco texto nessas famílias. Arquivo com qualquer REVIEW não entra no entregável.
+
+Vizinho ±2 só sobe para REMOVE se for continuação com linguagem de relatório ou CRC de firma, ou página quase sem texto com imagem pequena. Nota que só diz "(Continuação)" não entra.
+
+## O que já foi medido
+
+Censo completo, sem apagar: 8.515 PDFs, 340.674 páginas. Palavra "auditoria": 16.391 páginas (4,8%). Regra 1 REMOVE: 4.081 páginas (1,2%). O intervalo não é 3,6 pp: 15.028 páginas têm a palavra e não são REMOVE (4,4% do acervo). Parte da regra 1 é relatório em inglês, sem a palavra.
+
+Amostra aleatória de 140 dessas 15.028: 3 (cerca de 2%, faixa 1–6%) eram texto real do auditor, continuação em que o título ficou na página anterior ("como o assunto foi conduzido em nossa auditoria", "nossa opinião… não expressamos qualquer forma de conclusão de auditoria"). Dessas 3, 2 estavam KEEP e iriam ao cliente; 1 já estava em REVIEW. As outras 137 eram comitê, auditoria interna, currículo, ata ou honorário. No acervo inteiro, ordem de grandeza de ~300 páginas.
+
+## Ainda aberto
+
+Fechar essas continuações de PAA / "nossa opinião" no léxico antes de um `process` completo. Só 4 arquivos foram processados de ponta a ponta. OCR/VLM, banco de logos e zips internos não estão ligados. Não confiar em menção inofensiva dentro de documento de risco até um gold set mostrar vazamento zero.
