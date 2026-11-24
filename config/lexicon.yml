@@ -1,0 +1,81 @@
+# Detectores de peça do auditor e moldes de menção que permanecem.
+# Texto é comparado sem acento e em minúsculas.
+
+low_text_chars: 80
+risk_edge_pages: 8
+# Menção inofensiva dentro de demonstrações, ESG, 20-F ou FRE
+# ainda vai para revisão até o conjunto de ouro mostrar zero vazamento.
+trust_harmless_in_risk_docs: false
+
+risk_families_first:
+  - demonstracoes
+  - analise_gerencial
+
+risk_families_last:
+  - esg
+  - anual
+  - formulario_referencia
+  - form_20f
+
+risk_families_low_text:
+  - demonstracoes
+  - analise_gerencial
+  - esg
+  - anual
+  - formulario_referencia
+  - form_20f
+
+titles:
+  - 'relatorio d[oe]s? auditor(?:es)? independentes?'
+  - 'relatorio de revisao dos auditores independentes'
+  - 'relatorio de asseguracao(?: limitada)? dos auditores independentes'
+  - "independent auditor'?s report"
+  - 'report of independent registered public accounting firm'
+  - 'limited assurance report'
+  - "independent auditor'?s limited assurance report"
+
+verbs:
+  - '\bauditamos\b'
+  - 'we have audited'
+  - 'nossa responsabilidade e(?: a de)? expressar uma (opiniao|conclusao)'
+  - 'our responsibility is to express (an opinion|a conclusion)'
+  - '\bin our opinion\b'
+
+# CRC de firma (prefixo 2, pessoa jurídica). CRC 1SP é o contador da própria empresa.
+crc: 'crc\s*-?\s*2[a-z]{2}\s*-?\s*\d{4,}\s*/\s*o\s*-?\s*\d+'
+
+addressees:
+  - to the board of directors
+  - to the management and stockholders
+  - ao conselho de administracao
+  - aos acionistas
+  - aos administradores e acionistas
+
+firms:
+  - pricewaterhouse
+  - \bpwc\b
+  - kpmg
+  - deloitte
+  - ernst\s*&\s*young
+  - grant thornton
+  - \bbdo rcs\b
+
+harmless:
+  comite_auditoria:
+    - comite de auditoria
+    - audit committee
+  ibracon:
+    - \bibracon\b
+  tomar_conhecimento:
+    - tomar conhecimento
+  analistas:
+    - securities analysts
+  premio_ey:
+    - entrepreneur of the year
+  politica_cvm_381:
+    - instrucao cvm.{0,12}381
+  conselho_fiscal:
+    - conselho fiscal
+  cadastro_firma:
+    - auditores independentes da companhia
+    - independent auditors firm

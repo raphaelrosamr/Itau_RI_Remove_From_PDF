@@ -1,0 +1,18 @@
+[project]
+name = "itau-ri-sanitize"
+version = "0.1.0"
+description = "Triagem e remocao de paginas de auditoria externa em PDFs de RI"
+requires-python = ">=3.11"
+dependencies = [
+  "pymupdf",
+  "pikepdf",
+  "pyyaml",
+  "pillow",
+  "imagehash",
+]
+
+[project.scripts]
+itau-ri = "itau_ri_sanitize.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

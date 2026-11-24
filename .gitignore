@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.DS_Store
+pipeline/work/
+pipeline/staging/
+pipeline/deliverable/
+pipeline/removed/
+pipeline/quarantine/
+logs/runs/
+
+# Acervo original. Nao vai para o GitHub: o zip passa de 20 GB
+# e ha PDFs acima do limite de 100 MB do GitHub.
+raw/*
+!raw/.gitkeep
